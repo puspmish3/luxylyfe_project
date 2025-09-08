@@ -1,0 +1,148 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+// User model for authentication
+model User {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  email           String   @unique
+  password        String   // Encrypted with bcrypt
+  role            UserRole
+  name            String?
+  phone           String?
+  propertyAddress String?  // New field for member property address
+  propertyNumber  String?  // New field for member property number/unit
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  // Optional: Track login sessions
+  sessions  Session[]
+  
+  @@map("users")
+}
+
+// User roles
+enum UserRole {
+  SUPERADMIN
+  ADMIN
+  MEMBER
+}
+
+// Optional: Session tracking for enhanced security
+model Session {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@map("sessions")
+}
+
+// Optional: Login attempts tracking for security
+model LoginAttempt {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  email     String
+  ipAddress String?
+  success   Boolean
+  createdAt DateTime @default(now())
+  
+  @@map("login_attempts")
+}
+
+// Property model for luxury properties
+model Property {
+  id            String        @id @default(auto()) @map("_id") @db.ObjectId
+  propertyId    String        @unique // Unique property identifier (e.g., "LUX-001")
+  title         String        // Property title/name
+  address       String        // Full street address
+  city          String        // City
+  state         String        // State/Province
+  zipCode       String        // Postal/ZIP code
+  country       String        @default("United States")
+  propertyType  PropertyType  // Type of property
+  bedrooms      Int?          // Number of bedrooms
+  bathrooms     Float?        // Number of bathrooms (can be decimal like 2.5)
+  sqft          Int?          // Square footage
+  lotSize       Float?        // Lot size in acres
+  price         Float         // Property price
+  description   String?       // Property description
+  amenities     String[]      // Array of amenities
+  images        String[]      // Array of image URLs
+  email         String?       // Optional contact email for property inquiries
+  phone         String?       // Optional contact phone for property inquiries
+  isAvailable   Boolean       @default(true)
+  isFeature     Boolean       @default(false) // Featured property
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  
+  @@map("properties")
+}
+
+// Property types enum
+enum PropertyType {
+  MANSION
+  PENTHOUSE
+  VILLA
+  ESTATE
+  LUXURY_CONDO
+  WATERFRONT
+  BEACH_HOUSE
+  MOUNTAIN_RETREAT
+  CITY_LOFT
+  HISTORIC_HOME
+}
+
+// Content Management System models
+model PageContent {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  pageType    PageType // Type of page (HOME, PROJECTS, ABOUT, etc.)
+  sectionType String   // Section identifier (hero, features, gallery, etc.)
+  title       String?  // Section title
+  subtitle    String?  // Section subtitle
+  content     String?  // Main content/description
+  images      String[] // Array of image URLs
+  isActive    Boolean  @default(true)
+  order       Int      @default(0) // Display order for sections
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  createdBy   String?  @db.ObjectId // User who created this content
+  updatedBy   String?  @db.ObjectId // User who last updated this content
+  
+  @@map("page_contents")
+}
+
+// Page types enum
+enum PageType {
+  HOME
+  PROJECTS
+  ABOUT
+  MISSION
+  VISION
+  CONTACT
+  GENERAL
+}
+
+// Site settings and global content
+model SiteSettings {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  key         String   @unique // Setting key (site_name, logo_url, etc.)
+  value       String   // Setting value
+  description String?  // Description of what this setting does
+  dataType    String   @default("string") // string, number, boolean, json, image
+  isPublic    Boolean  @default(false) // Whether this setting can be accessed publicly
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  updatedBy   String?  @db.ObjectId // User who last updated this setting
+  
+  @@map("site_settings")
+}
