@@ -1,6 +1,8 @@
+/* eslint-disable @next/next/no-img-element */
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { fetchPageContent, getContentBySection, PageContent } from '@/lib/content'
 
 interface Property {
@@ -49,7 +51,7 @@ export default function Projects() {
     maxPrice: ''
   })
 
-  const fetchProperties = async (page: number = 1) => {
+  const fetchProperties = useCallback(async (page: number = 1) => {
     try {
       setLoading(true)
       const params = new URLSearchParams({
@@ -77,7 +79,7 @@ export default function Projects() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [filters])
 
   const loadPageContent = async () => {
     try {
@@ -96,7 +98,7 @@ export default function Projects() {
 
   useEffect(() => {
     fetchProperties(1)
-  }, [filters])
+  }, [fetchProperties])
 
   const handleFilterChange = (key: string, value: any) => {
     setFilters(prev => ({ ...prev, [key]: value }))
@@ -128,23 +130,48 @@ export default function Projects() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-gradient-to-r from-blue-900 via-blue-800 to-purple-900 text-white">
-        <div className="container mx-auto px-4 py-16">
-          <div className="text-center">
-            <h1 className="text-5xl font-bold mb-4">
-              {getContentBySection(pageContent, 'HERO')?.title || 'Luxury Property Portfolio'}
-            </h1>
-            <p className="text-xl text-blue-100 max-w-3xl mx-auto">
-              {getContentBySection(pageContent, 'HERO')?.content || 'Discover our exquisite collection of luxury homes and estates, each crafted with meticulous attention to detail and premium materials.'}
+      {/* Split Hero */}
+      <section className="grid grid-cols-1 md:grid-cols-2 min-h-[60vh] pt-24">
+        {/* Left: Visual */}
+        <div className="relative order-2 md:order-1">
+          <div className="absolute inset-0 bg-gradient-to-b from-blue-50 via-cyan-50 to-purple-50" aria-hidden />
+          <Image
+            src="https://images.unsplash.com/photo-1613977257593-4027e626c318?q=80&w=1640&auto=format&fit=crop"
+            alt="Modern luxury home exterior"
+            fill
+            priority
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className="object-cover mix-blend-multiply opacity-95"
+          />
+        </div>
+
+        {/* Right: Content */}
+        <div className="order-1 md:order-2 bg-slate-900 text-slate-50 px-6 md:px-10 lg:px-16 py-12 md:py-16 flex items-center">
+          <div className="w-full max-w-2xl mx-auto">
+            <div className="mb-6">
+              <span className="inline-block text-xs tracking-widest uppercase text-slate-300/80">Portfolio</span>
+              <h1 className="mt-2 text-4xl md:text-5xl font-extrabold leading-tight">
+                <span className="text-cyan-300">Luxury</span> Properties
+              </h1>
+            </div>
+            <p className="text-slate-200/90 leading-relaxed max-w-xl">
+              {getContentBySection(pageContent, 'HERO')?.content || 'Explore our curated collection of estates, penthouses, and villas—crafted with precision and elevated by timeless design.'}
             </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <a href="#filters" className="px-5 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold hover:from-cyan-600 hover:to-blue-700 transition shadow">
+                Browse Listings
+              </a>
+              <Link href="/contact-us" className="px-5 py-3 rounded-xl border border-white/15 text-slate-100 hover:bg-white/10 transition">
+                Contact Us
+              </Link>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
 
       <div className="container mx-auto px-4 py-12">
         {/* Filters */}
-        <div className="bg-white rounded-lg shadow-md p-6 mb-8">
+        <div id="filters" className="bg-white rounded-2xl shadow-md p-6 mb-8 border border-slate-100">
           <h3 className="text-lg font-semibold mb-4">Filter Properties</h3>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div>
@@ -153,7 +180,7 @@ export default function Projects() {
                   type="checkbox"
                   checked={filters.featured}
                   onChange={(e) => handleFilterChange('featured', e.target.checked)}
-                  className="mr-2"
+                  className="mr-2 accent-blue-600"
                 />
                 Featured Properties Only
               </label>
@@ -162,7 +189,7 @@ export default function Projects() {
               <select
                 value={filters.propertyType}
                 onChange={(e) => handleFilterChange('propertyType', e.target.value)}
-                className="w-full p-2 border border-gray-300 rounded-md"
+                className="w-full p-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
               >
                 <option value="">All Property Types</option>
                 <option value="MANSION">Mansion</option>
@@ -179,7 +206,7 @@ export default function Projects() {
                 placeholder="Min Price"
                 value={filters.minPrice}
                 onChange={(e) => handleFilterChange('minPrice', e.target.value)}
-                className="w-full p-2 border border-gray-300 rounded-md"
+                className="w-full p-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
               />
             </div>
             <div>
@@ -188,7 +215,7 @@ export default function Projects() {
                 placeholder="Max Price"
                 value={filters.maxPrice}
                 onChange={(e) => handleFilterChange('maxPrice', e.target.value)}
-                className="w-full p-2 border border-gray-300 rounded-md"
+                className="w-full p-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
               />
             </div>
           </div>

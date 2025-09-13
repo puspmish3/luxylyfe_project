@@ -1,0 +1,8 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/0252dabc-90f1-4c27-8ea6-25981fb06fdf/resourceGroups/luxylyfe-rg/providers/Microsoft.Web/sites/luxylyfe",
+    "appService.deploySubpath": "."
+}

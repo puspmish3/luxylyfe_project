@@ -11,7 +11,9 @@
     "db:migrate": "prisma migrate dev",
     "db:seed": "tsx prisma/seed.ts",
     "db:seed-properties": "tsx seed-properties.ts",
-    "db:studio": "prisma studio"
+    "db:studio": "prisma studio",
+    "db:compare": "node compare-databases.js",
+    "db:sync:incremental": "node incremental-sync-to-cosmos.js"
   },
   "dependencies": {
     "@prisma/client": "^6.15.0",
@@ -20,7 +22,7 @@
     "autoprefixer": "^10.4.21",
     "bcryptjs": "^3.0.2",
     "jsonwebtoken": "^9.0.2",
-    "next": "14.2.5",
+    "next": "^14.2.32",
     "next-auth": "^4.24.11",
     "prisma": "^6.15.0",
     "react": "^18",

@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import SplitSection from '@/components/SplitSection'
 import { fetchPageContent, getContentBySection, getContentsBySection, getFirstImage, PageContent, SiteSettings } from '@/lib/content'
 
 export default function Home() {
@@ -94,6 +95,16 @@ export default function Home() {
 
   return (
     <>
+      {/* Top-right login links for Home only */}
+      <div className="fixed top-4 right-4 z-50 flex items-center gap-3">
+        <Link href="/member-login" className="px-3 py-1.5 rounded-full text-sm font-medium text-slate-700 bg-white/80 backdrop-blur border border-slate-200 hover:bg-white hover:text-emerald-700 transition">
+          Member Login
+        </Link>
+        <Link href="/admin-login" className="px-3 py-1.5 rounded-full text-sm font-medium text-slate-700 bg-white/80 backdrop-blur border border-slate-200 hover:bg-white hover:text-purple-700 transition">
+          Admin Login
+        </Link>
+      </div>
+
       {/* Hero Section with Scrolling Images */}
       <section className="relative h-screen overflow-hidden">
         {heroImages.map((image, index) => (
@@ -128,6 +139,9 @@ export default function Home() {
             <p className="text-lg md:text-xl mb-12 text-blue-100/90 max-w-2xl mx-auto leading-relaxed">
               {heroContent?.content || 'Discover extraordinary homes that redefine modern living. Each property is a masterpiece of design, comfort, and sophistication.'}
             </p>
+            <p className="text-base md:text-lg mb-8 text-blue-100/80 max-w-2xl mx-auto leading-relaxed">
+              We specialize in bespoke, high‑end properties tailored to discerning clients seeking exceptional craftsmanship and service.
+            </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/projects">
                 <button className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold rounded-2xl hover:from-blue-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-blue-500/25">
@@ -140,20 +154,6 @@ export default function Home() {
               >
                 Schedule Viewing
               </button>
-            </div>
-            
-            {/* Login Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-              <Link href="/admin-login">
-                <button className="px-6 py-3 bg-gradient-to-r from-rose-400 to-pink-400 text-white font-medium rounded-xl hover:from-rose-500 hover:to-pink-500 hover:shadow-lg hover:shadow-rose-500/25 transition-all duration-300 transform hover:scale-105">
-                  Admin Login
-                </button>
-              </Link>
-              <Link href="/member-login">
-                <button className="px-6 py-3 bg-gradient-to-r from-emerald-400 to-teal-400 text-white font-medium rounded-xl hover:from-emerald-500 hover:to-teal-500 hover:shadow-lg hover:shadow-emerald-500/25 transition-all duration-300 transform hover:scale-105">
-                  Member Login
-                </button>
-              </Link>
             </div>
           </div>
         </div>
@@ -255,6 +255,142 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Inline Mission */}
+      <SplitSection
+        imageSrcs={[
+          'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1600&q=80',
+          'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1600&q=80',
+          'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1600&q=80',
+          'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1600&q=80'
+        ]}
+        imageAlt="Smiling person representing our friendly, modern brand"
+        eyebrow="About"
+        title="Our Mission"
+        highlight="Our"
+        panelBg="bg-emerald-950 text-emerald-50"
+        gradientClass="from-amber-50 via-rose-50 to-emerald-50"
+        minHeightClass="min-h-[70vh]"
+        slideIntervalMs={4500}
+      >
+        <div>
+          <h2 className="text-lg font-semibold text-emerald-200 mb-2">Who We Are</h2>
+          <p className="leading-relaxed text-emerald-100/90">
+            At LuxyLyfe, we connect discerning residents with top‑tier luxury homes and local services.
+            Our promise is elegant design, curated experiences, and trusted relationships.
+          </p>
+        </div>
+        <div>
+          <h2 className="text-lg font-semibold text-emerald-200 mb-2">Our Values</h2>
+          <ul className="list-disc list-inside space-y-1 text-emerald-100/90">
+            <li>Integrity in every interaction</li>
+            <li>Uncompromising quality</li>
+            <li>Community‑first partnerships</li>
+          </ul>
+        </div>
+      </SplitSection>
+
+      {/* Inline Vision */}
+      <SplitSection
+        imageSrcs={[
+          'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1600&q=80',
+          'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1600&q=80',
+          'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1600&q=80',
+          'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=80'
+        ]}
+        imageAlt="Luxury apartment homes and buildings"
+        eyebrow="About"
+        title="Our Vision"
+        highlight="Our"
+        panelBg="bg-slate-900 text-slate-50"
+        gradientClass="from-blue-50 via-cyan-50 to-emerald-50"
+        minHeightClass="min-h-[70vh]"
+        reverse
+        slideIntervalMs={4500}
+      >
+        <div>
+          <h2 className="text-lg font-semibold text-cyan-200 mb-2">Elevating Luxury</h2>
+          <p className="leading-relaxed text-slate-100/90">
+            We aim to redefine luxury living with innovative designs, sustainable practices,
+            and curated experiences that elevate everyday life.
+          </p>
+        </div>
+      </SplitSection>
+
+      {/* Inline About (placed above Contact) */}
+      <SplitSection
+        imageSrcs={[
+          'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=80',
+          'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1600&q=80',
+          'https://images.unsplash.com/photo-1542621334-a254cf47733d?auto=format&fit=crop&w=1600&q=80',
+          'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?auto=format&fit=crop&w=1600&q=80'
+        ]}
+        imageAlt="High-rise apartment buildings"
+        eyebrow="About"
+        title="About Us"
+        highlight="About"
+        panelBg="bg-indigo-950 text-indigo-50"
+        gradientClass="from-rose-50 via-pink-50 to-purple-50"
+        minHeightClass="min-h-[60vh]"
+        slideIntervalMs={4500}
+      >
+        <div>
+          <h2 className="text-lg font-semibold text-indigo-200 mb-2">Who We Serve</h2>
+          <p className="leading-relaxed text-indigo-100/90">
+            We specialize in bespoke, high‑end properties tailored to discerning clients seeking
+            exceptional craftsmanship and service.
+          </p>
+        </div>
+      </SplitSection>
+
+
+      {/* Inline Contact */}
+      <SplitSection
+        imageSrc="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1600&q=80"
+        imageAlt="Professional customer care agent ready to assist"
+        eyebrow="Get in touch"
+        title="Contact Us"
+        highlight="Contact"
+        panelBg="bg-teal-950 text-teal-50"
+        gradientClass="from-teal-50 via-emerald-50 to-amber-50"
+        minHeightClass="min-h-[70vh]"
+      >
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm mb-2 text-teal-200">Full Name</label>
+            <input className="w-full rounded-xl bg-white/10 border border-white/10 px-4 py-3 text-white placeholder:text-teal-200/60 focus:outline-none focus:ring-2 focus:ring-teal-400" placeholder="Jane Doe" />
+          </div>
+          <div>
+            <label className="block text-sm mb-2 text-teal-200">Email</label>
+            <input type="email" className="w-full rounded-xl bg-white/10 border border-white/10 px-4 py-3 text-white placeholder:text-teal-200/60 focus:outline-none focus:ring-2 focus:ring-teal-400" placeholder="you@example.com" />
+          </div>
+          <div>
+            <label className="block text-sm mb-2 text-teal-200">Phone</label>
+            <input className="w-full rounded-xl bg-white/10 border border-white/10 px-4 py-3 text-white placeholder:text-teal-200/60 focus:outline-none focus:ring-2 focus:ring-teal-400" placeholder="(555) 123-4567" />
+          </div>
+          <div>
+            <label className="block text-sm mb-2 text-teal-200">Topic</label>
+            <select className="w-full rounded-xl bg-white/10 border border-white/10 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-teal-400">
+              <option className="bg-teal-900">Property Inquiry</option>
+              <option className="bg-teal-900">Schedule Viewing</option>
+              <option className="bg-teal-900">Partnership</option>
+              <option className="bg-teal-900">Other</option>
+            </select>
+          </div>
+          <div className="md:col-span-2">
+            <label className="block text-sm mb-2 text-teal-200">Message</label>
+            <textarea rows={4} className="w-full rounded-xl bg-white/10 border border-white/10 px-4 py-3 text-white placeholder:text-teal-200/60 focus:outline-none focus:ring-2 focus:ring-teal-400" placeholder="Tell us how we can help" />
+          </div>
+        </div>
+        <div className="flex items-center gap-4 pt-2">
+          <button onClick={() => setShowSchedulingModal(true)} className="px-6 py-3 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-500 text-white font-semibold hover:from-teal-600 hover:to-emerald-600 transition shadow">
+            Send Message
+          </button>
+          <div className="text-sm text-teal-200/80">
+            Or email us at <span className="text-teal-200 underline">info@luxylyfe.biz</span>
+          </div>
+        </div>
+      </SplitSection>
 
       {/* Stats Section */}
       <section className="py-24 bg-gradient-to-br from-slate-800 via-slate-900 to-blue-900">

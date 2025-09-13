@@ -129,6 +129,7 @@ enum PageType {
   MISSION
   VISION
   CONTACT
+  FOOTER
   GENERAL
 }
 

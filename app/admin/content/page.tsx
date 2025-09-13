@@ -34,8 +34,8 @@ export default function ContentManagement() {
   const [showSettingsForm, setShowSettingsForm] = useState(false)
   const [loading, setLoading] = useState(true)
 
-  const pageTypes = ['HOME', 'PROJECTS', 'ABOUT', 'MISSION', 'VISION', 'CONTACT']
-  const sectionTypes = ['HERO', 'SECTION', 'GALLERY', 'FEATURES', 'TESTIMONIALS']
+  const pageTypes = ['HOME', 'PROJECTS', 'ABOUT', 'MISSION', 'VISION', 'CONTACT', 'FOOTER']
+  const sectionTypes = ['HERO', 'SECTION', 'GALLERY', 'FEATURES', 'TESTIMONIALS', 'NAVIGATION', 'SERVICES', 'CONTACT_INFO', 'LEGAL']
   const dataTypes = ['string', 'number', 'boolean', 'json']
 
   const [formData, setFormData] = useState({
@@ -83,7 +83,7 @@ export default function ContentManagement() {
         const response = await fetch('/api/admin/content')
         if (response.ok) {
           const data = await response.json()
-          setContents(data.contents || [])
+          setContents(data.content || [])
         }
       } catch (error) {
         console.error('Error fetching contents:', error)
@@ -138,16 +138,18 @@ export default function ContentManagement() {
     e.preventDefault()
     try {
       const method = editingContent ? 'PUT' : 'POST'
-      const url = editingContent 
-        ? `/api/admin/content?id=${editingContent.id}`
-        : '/api/admin/content'
+      const url = '/api/admin/content'
+      
+      const requestBody = editingContent 
+        ? { ...formData, id: editingContent.id }
+        : formData
 
       const response = await fetch(url, {
         method,
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(requestBody),
       })
 
       if (response.ok) {
