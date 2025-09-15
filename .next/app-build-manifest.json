@@ -11,6 +11,16 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
+    "/member-login/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/member-login/page.js"
+    ],
+    "/member-test-dashboard/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/member-test-dashboard/page.js"
+    ],
     "/admin-login/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -21,10 +31,10 @@
       "static/chunks/main-app.js",
       "static/chunks/app/admin/dashboard/page.js"
     ],
-    "/admin/content/page": [
+    "/member/dashboard/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/admin/content/page.js"
+      "static/chunks/app/member/dashboard/page.js"
     ]
   }
 }

@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { prisma } from '@/lib/prisma'
+import { db } from '@/lib/database'
+
+// Force dynamic rendering
+export const dynamic = 'force-dynamic'
 
 export async function POST(request: NextRequest) {
   try {
@@ -8,9 +11,10 @@ export async function POST(request: NextRequest) {
     if (token) {
       // Delete session from database
       try {
-        await prisma.session.deleteMany({
-          where: { token }
-        })
+        const session = await db.session.findUnique({ token })
+        if (session) {
+          await db.session.delete({ id: session.id })
+        }
       } catch (error) {
         console.error('Failed to delete session:', error)
       }

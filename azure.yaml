@@ -1,0 +1,18 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json
+
+name: luxylyfe
+metadata:
+  template: luxylyfe@0.0.1-beta
+services:
+  web:
+    project: .
+    language: ts
+    host: appservice
+    env:
+      - JWT_SECRET
+      - NEXTAUTH_SECRET
+      - NEXTAUTH_URL
+      - DATABASE_MODE
+      - COSMOS_DB_ENDPOINT
+      - COSMOS_DB_KEY
+      - COSMOS_DB_DATABASE_NAME

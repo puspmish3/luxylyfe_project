@@ -1,11 +1,7 @@
 {
-  "/admin-login/page": "app/admin-login/page.js",
   "/admin/dashboard/page": "app/admin/dashboard/page.js",
-  "/admin/content/page": "app/admin/content/page.js",
-  "/api/auth/me/route": "app/api/auth/me/route.js",
-  "/api/admin/content/route": "app/api/admin/content/route.js",
-  "/api/admin/settings/route": "app/api/admin/settings/route.js",
-  "/api/auth/logout/route": "app/api/auth/logout/route.js",
+  "/member-test-dashboard/page": "app/member-test-dashboard/page.js",
+  "/admin-login/page": "app/admin-login/page.js",
   "/page": "app/page.js",
-  "/api/content/route": "app/api/content/route.js"
+  "/member/dashboard/page": "app/member/dashboard/page.js"
 }

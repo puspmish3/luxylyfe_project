@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { prisma } from '@/lib/prisma'
+import { db } from '@/lib/database'
+
+// Force dynamic rendering
+export const dynamic = 'force-dynamic'
 
 // GET - Get public page content and settings
 export async function GET(request: NextRequest) {
@@ -12,42 +15,38 @@ export async function GET(request: NextRequest) {
 
     // Get page content
     if (pageType) {
-      const content = await prisma.pageContent.findMany({
-        where: {
-          pageType: pageType as any,
-          isActive: true
-        },
-        select: {
-          id: true,
-          sectionType: true,
-          title: true,
-          subtitle: true,
-          content: true,
-          images: true,
-          order: true
-        },
-        orderBy: [
-          { order: 'asc' },
-          { createdAt: 'desc' }
-        ]
+      const content = await db.pageContent.findMany({
+        pageType,
+        isActive: true
       })
 
-      result.content = content
+      // Sort content by order
+      content.sort((a, b) => {
+        if (a.order !== b.order) return a.order - b.order
+        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      })
+
+      // Clean the response
+      const cleanContent = content.map(item => ({
+        id: item.id,
+        sectionType: item.sectionType,
+        title: item.title,
+        subtitle: item.subtitle,
+        content: item.content,
+        images: item.images,
+        order: item.order
+      }))
+
+      result.content = cleanContent
     }
 
     // Get public settings if requested
     if (includeSettings) {
-      const settings = await prisma.siteSettings.findMany({
-        where: { isPublic: true },
-        select: {
-          key: true,
-          value: true,
-          dataType: true
-        }
-      })
+      const allSettings = await db.siteSettings.findMany()
+      const publicSettings = allSettings.filter(setting => setting.isPublic)
 
       // Convert to key-value object for easier access
-      result.settings = settings.reduce((acc: any, setting: any) => {
+      result.settings = publicSettings.reduce((acc: any, setting: any) => {
         let value: any = setting.value
         
         // Convert data types

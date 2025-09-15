@@ -1,0 +1,74 @@
+[
+  {
+    "id": "68bdc86cb0ccc86ddce952df",
+    "email": "admin@luxylyfe.com",
+    "password": "$2b$12$lVIeH0GQkSZD6Wobdi.GDOUqjqZGhJkClgQ84GhONZI6l8M/rdZJK",
+    "role": "ADMIN",
+    "name": "LuxyLyfe Administrator",
+    "phone": "+1-555-0100",
+    "propertyAddress": null,
+    "propertyNumber": null,
+    "createdAt": "2025-09-07T18:01:13.476Z",
+    "updatedAt": "2025-09-07T18:01:13.476Z"
+  },
+  {
+    "id": "68bdc86db0ccc86ddce952e0",
+    "email": "member@luxylyfe.com",
+    "password": "$2b$12$ZCe/9ErufCMnx.CL5So7nOejJdiJaclN7TVxJeKHPoO.KUiwJrFZC",
+    "role": "MEMBER",
+    "name": "John Doe",
+    "phone": "+1-555-0200",
+    "propertyAddress": "123 Luxury Lane, Beverly Hills, CA 90210",
+    "propertyNumber": "Unit 101",
+    "createdAt": "2025-09-07T18:01:16.819Z",
+    "updatedAt": "2025-09-07T18:01:16.819Z"
+  },
+  {
+    "id": "68bde1fc717f27ca6a51306e",
+    "email": "manager@luxylyfe.com",
+    "password": "$2b$12$t1qFk9CWNE9yLTOI8FVtnO.XiCFWSKYyWGMIMnGfhl3OW6Nb0o3Za",
+    "role": "ADMIN",
+    "name": "Property Manager",
+    "phone": "+1-555-0150",
+    "propertyAddress": null,
+    "propertyNumber": null,
+    "createdAt": "2025-09-07T19:50:19.863Z",
+    "updatedAt": "2025-09-07T19:50:19.863Z"
+  },
+  {
+    "id": "68bde1fe717f27ca6a51306f",
+    "email": "jane.smith@email.com",
+    "password": "$2b$12$en0aJ/7h0hZ1np2dcrx8jOybGrdwTfteReBeK0DSBxA173mgMfZAi",
+    "role": "MEMBER",
+    "name": "Jane Smith",
+    "phone": "+1-555-0250",
+    "propertyAddress": "456 Elite Drive, Manhattan, NY 10021",
+    "propertyNumber": "Penthouse A",
+    "createdAt": "2025-09-07T19:50:22.025Z",
+    "updatedAt": "2025-09-07T19:50:22.025Z"
+  },
+  {
+    "id": "68be473e49a7e5df78cd9dbe",
+    "email": "debamohapatra@luxylyfe.biz",
+    "password": "$2b$12$dYikAXPqhaIYIo8ssP00sepeGXuw.XF2JDEGsF8Swf3AvK03luJci",
+    "role": "MEMBER",
+    "name": "Deba Mohapatra",
+    "phone": "+1-310-555-0101",
+    "propertyAddress": "1234 Rodeo Drive, Beverly Hills, California 90210",
+    "propertyNumber": "LUX-001",
+    "createdAt": "2025-09-08T03:02:22.079Z",
+    "updatedAt": "2025-09-08T13:31:12.900Z"
+  },
+  {
+    "id": "68bed7ad7661fd3acda0127e",
+    "email": "newadmin@luxylyfe.com",
+    "password": "$2b$12$PmUh5R5NQXJPDrHmrzJ8SewRP.GQmxENM7tiutnc8KbdFbysG/GQW",
+    "role": "SUPERADMIN",
+    "name": "New LuxyLyfe Administrator",
+    "phone": null,
+    "propertyAddress": null,
+    "propertyNumber": null,
+    "createdAt": "2025-09-08T13:18:37.834Z",
+    "updatedAt": "2025-09-08T13:18:37.834Z"
+  }
+]

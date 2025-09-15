@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { prisma } from '@/lib/prisma'
+import { db } from '@/lib/database'
+
+// Force dynamic rendering
+export const dynamic = 'force-dynamic'
 
 export async function GET(request: NextRequest) {
   try {
@@ -14,65 +17,53 @@ export async function GET(request: NextRequest) {
     // Calculate offset for pagination
     const offset = (page - 1) * limit
 
-    // Build where clause
+    // Build where clause for Cosmos DB
     const where: any = {}
     
     if (featured) {
       where.isFeature = true
     }
-    
+
+    // Get all properties first (Cosmos DB doesn't have built-in pagination like SQL)
+    let allProperties = await db.property.findMany(where)
+
+    // Apply client-side filtering for price and type
     if (propertyType) {
-      where.propertyType = propertyType
-    }
-    
-    if (minPrice || maxPrice) {
-      where.price = {}
-      if (minPrice) where.price.gte = parseFloat(minPrice)
-      if (maxPrice) where.price.lte = parseFloat(maxPrice)
+      allProperties = allProperties.filter(p => p.propertyType === propertyType)
     }
 
-    // Get total count for pagination
-    const totalProperties = await prisma.property.count({ where })
+    if (minPrice) {
+      allProperties = allProperties.filter(p => p.price >= parseFloat(minPrice))
+    }
 
-    // Get properties with pagination
-    const properties = await prisma.property.findMany({
-      where,
-      skip: offset,
-      take: limit,
-      orderBy: [
-        { isFeature: 'desc' }, // Featured properties first
-        { createdAt: 'desc' }  // Then by newest
-      ],
-      select: {
-        id: true,
-        propertyId: true,
-        title: true,
-        address: true,
-        city: true,
-        state: true,
-        zipCode: true,
-        propertyType: true,
-        bedrooms: true,
-        bathrooms: true,
-        sqft: true,
-        price: true,
-        description: true,
-        amenities: true,
-        images: true,
-        email: true,
-        phone: true,
-        isFeature: true,
-        isAvailable: true
-      }
+    if (maxPrice) {
+      allProperties = allProperties.filter(p => p.price <= parseFloat(maxPrice))
+    }
+
+    // Sort properties (featured first, then by newest)
+    allProperties.sort((a, b) => {
+      if (a.isFeature && !b.isFeature) return -1
+      if (!a.isFeature && b.isFeature) return 1
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
     })
+
+    // Apply pagination
+    const totalProperties = allProperties.length
+    const properties = allProperties.slice(offset, offset + limit)
 
     // Calculate pagination info
     const totalPages = Math.ceil(totalProperties / limit)
     const hasNextPage = page < totalPages
     const hasPrevPage = page > 1
 
+    // Remove sensitive information
+    const cleanProperties = properties.map(property => {
+      const { password, ...cleanProperty } = property as any
+      return cleanProperty
+    })
+
     return NextResponse.json({
-      properties,
+      properties: cleanProperties,
       pagination: {
         currentPage: page,
         totalPages,

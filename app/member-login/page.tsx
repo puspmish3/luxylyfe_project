@@ -45,9 +45,9 @@ export default function MemberLogin() {
       }
 
       // Login successful
-      alert(`Welcome ${data.user.name || data.user.email}! Redirecting to member dashboard...`)
+      alert(`Welcome ${data.user.name || data.user.email}! Redirecting to dashboard...`)
       
-      // Redirect to member dashboard (you can create this page later)
+      // Redirect to proper member dashboard
       router.push('/member/dashboard')
       
     } catch (error) {

@@ -1,0 +1,275 @@
+[
+  {
+    "id": "68bde8404ee8c6881711410d",
+    "email": "admin@luxylyfe.com",
+    "ipAddress": "::1",
+    "success": true,
+    "createdAt": "2025-09-07T20:17:02.265Z"
+  },
+  {
+    "id": "68bde8874ee8c6881711410f",
+    "email": "member@luxylyfe.com",
+    "ipAddress": "::1",
+    "success": true,
+    "createdAt": "2025-09-07T20:18:15.931Z"
+  },
+  {
+    "id": "68bde8a64ee8c68817114111",
+    "email": "jane.smith@email.com",
+    "ipAddress": "::1",
+    "success": true,
+    "createdAt": "2025-09-07T20:18:46.639Z"
+  },
+  {
+    "id": "68be476e49a7e5df78cd9dbf",
+    "email": "debamohapatra@luxylyfe.biz",
+    "ipAddress": "::1",
+    "success": false,
+    "createdAt": "2025-09-08T03:03:10.438Z"
+  },
+  {
+    "id": "68be47a149a7e5df78cd9dc0",
+    "email": "debamohapatra@luxylyfe.biz",
+    "ipAddress": "::1",
+    "success": false,
+    "createdAt": "2025-09-08T03:04:01.464Z"
+  },
+  {
+    "id": "68be483349a7e5df78cd9dc1",
+    "email": "debamohapatra@luxylyfe.biz",
+    "ipAddress": "::1",
+    "success": false,
+    "createdAt": "2025-09-08T03:06:27.875Z"
+  },
+  {
+    "id": "68be483e49a7e5df78cd9dc2",
+    "email": "debamohapatra@luxylyfe.biz",
+    "ipAddress": "::1",
+    "success": false,
+    "createdAt": "2025-09-08T03:06:38.943Z"
+  },
+  {
+    "id": "68be495949a7e5df78cd9dc4",
+    "email": "debamohapatra@luxylyfe.biz",
+    "ipAddress": "::1",
+    "success": false,
+    "createdAt": "2025-09-08T03:11:18.103Z"
+  },
+  {
+    "id": "68be5b61d4ae5b77d0f53a37",
+    "email": "superadmin@luxylyfe.com",
+    "ipAddress": "::1",
+    "success": true,
+    "createdAt": "2025-09-08T04:28:15.333Z"
+  },
+  {
+    "id": "68be5b6bd4ae5b77d0f53a38",
+    "email": "superadmin@luxylyfe.com",
+    "ipAddress": "::1",
+    "success": true,
+    "createdAt": "2025-09-08T04:28:27.393Z"
+  },
+  {
+    "id": "68be5caad4ae5b77d0f53a3b",
+    "email": "superadmin@luxylyfe.com",
+    "ipAddress": "::1",
+    "success": false,
+    "createdAt": "2025-09-08T04:33:43.200Z"
+  },
+  {
+    "id": "68be5cb5d4ae5b77d0f53a3c",
+    "email": "superadmin@luxylyfe.com",
+    "ipAddress": "::1",
+    "success": false,
+    "createdAt": "2025-09-08T04:33:57.045Z"
+  },
+  {
+    "id": "68be5cefd4ae5b77d0f53a3d",
+    "email": "superadmin@luxylyfe.com",
+    "ipAddress": "::1",
+    "success": false,
+    "createdAt": "2025-09-08T04:34:55.161Z"
+  },
+  {
+    "id": "68be5d72d4ae5b77d0f53a3f",
+    "email": "superadmin@luxylyfe.com",
+    "ipAddress": "::1",
+    "success": false,
+    "createdAt": "2025-09-08T04:37:03.460Z"
+  },
+  {
+    "id": "68be5db5d4ae5b77d0f53a40",
+    "email": "superadmin@luxylyfe.com",
+    "ipAddress": "::1",
+    "success": false,
+    "createdAt": "2025-09-08T04:38:13.068Z"
+  },
+  {
+    "id": "68be5dbdd4ae5b77d0f53a41",
+    "email": "superadmin@luxylyfe.com",
+    "ipAddress": "::1",
+    "success": false,
+    "createdAt": "2025-09-08T04:38:21.043Z"
+  },
+  {
+    "id": "68bed832e2de2fcb18cb3273",
+    "email": "newadmin@luxylyfe.com",
+    "ipAddress": "::1",
+    "success": true,
+    "createdAt": "2025-09-08T13:20:47.624Z"
+  },
+  {
+    "id": "68bed8d3e2de2fcb18cb3275",
+    "email": "newadmin@luxylyfe.com",
+    "ipAddress": "::1",
+    "success": true,
+    "createdAt": "2025-09-08T13:23:28.342Z"
+  },
+  {
+    "id": "68beda38622b57bea35d733f",
+    "email": "newadmin@luxylyfe.com",
+    "ipAddress": "::1",
+    "success": true,
+    "createdAt": "2025-09-08T13:29:25.502Z"
+  },
+  {
+    "id": "68bedafe622b57bea35d7341",
+    "email": "admin@luxylyfe.com",
+    "ipAddress": "::1",
+    "success": true,
+    "createdAt": "2025-09-08T13:32:46.758Z"
+  },
+  {
+    "id": "68bedaff622b57bea35d7342",
+    "email": "admin@luxylyfe.com",
+    "ipAddress": "::1",
+    "success": true,
+    "createdAt": "2025-09-08T13:32:47.839Z"
+  },
+  {
+    "id": "68bedfa6b77804cec69b2895",
+    "email": "admin@luxylyfe.com",
+    "ipAddress": "::1",
+    "success": true,
+    "createdAt": "2025-09-08T13:52:38.824Z"
+  },
+  {
+    "id": "68bedfa8b77804cec69b2896",
+    "email": "admin@luxylyfe.com",
+    "ipAddress": "::1",
+    "success": true,
+    "createdAt": "2025-09-08T13:52:40.100Z"
+  },
+  {
+    "id": "68bedfc2b77804cec69b2898",
+    "email": "admin@luxylyfe.com",
+    "ipAddress": "::1",
+    "success": true,
+    "createdAt": "2025-09-08T13:53:06.918Z"
+  },
+  {
+    "id": "68bedfc4b77804cec69b2899",
+    "email": "admin@luxylyfe.com",
+    "ipAddress": "::1",
+    "success": true,
+    "createdAt": "2025-09-08T13:53:08.163Z"
+  },
+  {
+    "id": "68bedfdeb77804cec69b289b",
+    "email": "admin@luxylyfe.com",
+    "ipAddress": "::1",
+    "success": true,
+    "createdAt": "2025-09-08T13:53:34.447Z"
+  },
+  {
+    "id": "68bedfdfb77804cec69b289c",
+    "email": "admin@luxylyfe.com",
+    "ipAddress": "::1",
+    "success": true,
+    "createdAt": "2025-09-08T13:53:35.685Z"
+  },
+  {
+    "id": "68bee107b77804cec69b289e",
+    "email": "newadmin@luxylyfe.com",
+    "ipAddress": "::1",
+    "success": true,
+    "createdAt": "2025-09-08T13:58:31.991Z"
+  },
+  {
+    "id": "68bf0d1058767acafe919cb7",
+    "email": "newadmin@luxylyfe.com",
+    "ipAddress": "::1",
+    "success": true,
+    "createdAt": "2025-09-08T17:06:24.369Z"
+  },
+  {
+    "id": "68c036abce5e47fa6bcc225b",
+    "email": "newadmin@luxylyfe.com",
+    "ipAddress": "::1",
+    "success": true,
+    "createdAt": "2025-09-09T14:16:11.730Z"
+  },
+  {
+    "id": "68c4e33137bcfae80078e159",
+    "email": "newadmin@luxylyfe.com",
+    "ipAddress": "::1",
+    "success": true,
+    "createdAt": "2025-09-13T03:21:18.311Z"
+  },
+  {
+    "id": "68c4e37d37bcfae80078e15b",
+    "email": "admin@luxylyfe.com",
+    "ipAddress": "::1",
+    "success": true,
+    "createdAt": "2025-09-13T03:22:37.854Z"
+  },
+  {
+    "id": "68c4e37f37bcfae80078e15c",
+    "email": "admin@luxylyfe.com",
+    "ipAddress": "::1",
+    "success": true,
+    "createdAt": "2025-09-13T03:22:39.108Z"
+  },
+  {
+    "id": "68c4e6d3b598ba11abd58976",
+    "email": "admin@luxylyfe.com",
+    "ipAddress": "::1",
+    "success": true,
+    "createdAt": "2025-09-13T03:36:51.047Z"
+  },
+  {
+    "id": "68c4e6d4b598ba11abd58977",
+    "email": "admin@luxylyfe.com",
+    "ipAddress": "::1",
+    "success": true,
+    "createdAt": "2025-09-13T03:36:52.343Z"
+  },
+  {
+    "id": "68c4eba7ee7c424d95f0c281",
+    "email": "admin@luxylyfe.com",
+    "ipAddress": "::1",
+    "success": true,
+    "createdAt": "2025-09-13T03:57:27.442Z"
+  },
+  {
+    "id": "68c4eba8ee7c424d95f0c282",
+    "email": "admin@luxylyfe.com",
+    "ipAddress": "::1",
+    "success": true,
+    "createdAt": "2025-09-13T03:57:28.737Z"
+  },
+  {
+    "id": "68c4edb0ea4f0457b6336e28",
+    "email": "admin@luxylyfe.com",
+    "ipAddress": "::1",
+    "success": true,
+    "createdAt": "2025-09-13T04:06:08.826Z"
+  },
+  {
+    "id": "68c4edb2ea4f0457b6336e29",
+    "email": "admin@luxylyfe.com",
+    "ipAddress": "::1",
+    "success": true,
+    "createdAt": "2025-09-13T04:06:10.140Z"
+  }
+]

@@ -1,0 +1,79 @@
+[
+  {
+    "id": "68bedebad6cea220ce372e61",
+    "key": "hero_rotation_speed",
+    "value": "4000",
+    "description": null,
+    "dataType": "number",
+    "isPublic": true,
+    "createdAt": "2025-09-08T13:48:42.074Z",
+    "updatedAt": "2025-09-08T13:48:42.074Z",
+    "updatedBy": null
+  },
+  {
+    "id": "68bedebad6cea220ce372e60",
+    "key": "company_address",
+    "value": "123 Luxury Lane, Premium City, PC 12345",
+    "description": null,
+    "dataType": "string",
+    "isPublic": true,
+    "createdAt": "2025-09-08T13:48:42.074Z",
+    "updatedAt": "2025-09-13T03:23:34.564Z",
+    "updatedBy": "68bdc86cb0ccc86ddce952df"
+  },
+  {
+    "id": "68bedebad6cea220ce372e5e",
+    "key": "contact_email",
+    "value": "contact@luxylyfe.com",
+    "description": null,
+    "dataType": "string",
+    "isPublic": true,
+    "createdAt": "2025-09-08T13:48:42.074Z",
+    "updatedAt": "2025-09-08T13:48:42.074Z",
+    "updatedBy": null
+  },
+  {
+    "id": "68bedebad6cea220ce372e5f",
+    "key": "contact_phone",
+    "value": "+1 (555) 123-4567",
+    "description": null,
+    "dataType": "string",
+    "isPublic": true,
+    "createdAt": "2025-09-08T13:48:42.074Z",
+    "updatedAt": "2025-09-08T13:48:42.074Z",
+    "updatedBy": null
+  },
+  {
+    "id": "68bedebad6cea220ce372e5d",
+    "key": "site_name",
+    "value": "LuxyLyfe - Luxury Homes",
+    "description": null,
+    "dataType": "string",
+    "isPublic": true,
+    "createdAt": "2025-09-08T13:48:42.074Z",
+    "updatedAt": "2025-09-08T13:48:42.074Z",
+    "updatedBy": null
+  },
+  {
+    "id": "68bedebad6cea220ce372e62",
+    "key": "properties_per_page",
+    "value": "6",
+    "description": null,
+    "dataType": "number",
+    "isPublic": false,
+    "createdAt": "2025-09-08T13:48:42.074Z",
+    "updatedAt": "2025-09-08T13:48:42.074Z",
+    "updatedBy": null
+  },
+  {
+    "id": "68bedebad6cea220ce372e63",
+    "key": "admin_notification_email",
+    "value": "admin@luxylyfe.com",
+    "description": null,
+    "dataType": "string",
+    "isPublic": false,
+    "createdAt": "2025-09-08T13:48:42.074Z",
+    "updatedAt": "2025-09-08T13:48:42.074Z",
+    "updatedBy": null
+  }
+]

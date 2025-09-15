@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { prisma } from '@/lib/prisma'
+import { db } from '@/lib/database'
 import { hashPassword } from '@/lib/auth'
+
+// Force dynamic rendering
+export const dynamic = 'force-dynamic'
 
 export async function POST(request: NextRequest) {
   try {
@@ -31,8 +34,8 @@ export async function POST(request: NextRequest) {
     }
 
     // Validate property information against database
-    const property = await prisma.property.findUnique({
-      where: { propertyId }
+    const property = await db.property.findUnique({
+      propertyId
     })
 
     if (!property) {
@@ -88,8 +91,8 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if user already exists
-    const existingUser = await prisma.user.findUnique({
-      where: { email }
+    const existingUser = await db.user.findUnique({
+      email
     })
 
     if (existingUser) {
@@ -103,31 +106,22 @@ export async function POST(request: NextRequest) {
     const hashedPassword = await hashPassword(password)
 
     // Create user with validated property information
-    const user = await prisma.user.create({
-      data: {
-        email,
-        password: hashedPassword,
-        role,
-        name,
-        phone,
-        propertyAddress,
-        propertyNumber
-      },
-      select: {
-        id: true,
-        email: true,
-        role: true,
-        name: true,
-        phone: true,
-        propertyAddress: true,
-        propertyNumber: true,
-        createdAt: true
-      }
+    const user = await db.user.create({
+      email,
+      password: hashedPassword,
+      role,
+      name,
+      phone,
+      propertyAddress,
+      propertyNumber
     })
+
+    // Remove password from response
+    const { password: _, ...userResponse } = user;
 
     return NextResponse.json({
       message: 'Account created successfully! Your information has been validated against our property records.',
-      user,
+      user: userResponse,
       propertyInfo: {
         propertyId: property.propertyId,
         title: property.title,

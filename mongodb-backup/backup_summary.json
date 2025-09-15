@@ -1,0 +1,38 @@
+{
+  "backupDate": "2025-09-14T04:34:52.254Z",
+  "totalCollections": 6,
+  "successfulBackups": 6,
+  "failedBackups": 0,
+  "results": [
+    {
+      "collection": "users",
+      "count": 6,
+      "file": "users_backup_2025-09-14.json"
+    },
+    {
+      "collection": "sessions",
+      "count": 8,
+      "file": "sessions_backup_2025-09-14.json"
+    },
+    {
+      "collection": "loginAttempts",
+      "count": 39,
+      "file": "loginAttempts_backup_2025-09-14.json"
+    },
+    {
+      "collection": "properties",
+      "count": 10,
+      "file": "properties_backup_2025-09-14.json"
+    },
+    {
+      "collection": "pageContents",
+      "count": 11,
+      "file": "pageContents_backup_2025-09-14.json"
+    },
+    {
+      "collection": "siteSettings",
+      "count": 7,
+      "file": "siteSettings_backup_2025-09-14.json"
+    }
+  ]
+}

@@ -5,6 +5,9 @@ generator client {
   provider = "prisma-client-js"
 }
 
+// NOTE: Prisma does not directly support Azure Cosmos DB SQL API
+// We'll use MongoDB Atlas for now and Azure Cosmos SDK for direct access
+// Consider migrating to Cosmos DB for MongoDB API if you need Prisma support
 datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
