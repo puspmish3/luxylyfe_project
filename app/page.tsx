@@ -11,12 +11,20 @@ export default function Home() {
   const [pageContent, setPageContent] = useState<PageContent[]>([])
   const [siteSettings, setSiteSettings] = useState<SiteSettings>({})
   const [loading, setLoading] = useState(true)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
     preferredDate: '',
     timeWindow: '',
+    message: ''
+  })
+  const [contactData, setContactData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    subject: '',
     message: ''
   })
 
@@ -73,20 +81,99 @@ export default function Home() {
     })
   }
 
-  const handleSchedulingSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Add form submission logic here
-    console.log('Scheduling request:', formData)
-    alert('Thank you! Your viewing request has been submitted. We will contact you soon to confirm your appointment.')
-    setShowSchedulingModal(false)
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      preferredDate: '',
-      timeWindow: '',
-      message: ''
+  const handleContactInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    setContactData({
+      ...contactData,
+      [e.target.name]: e.target.value
     })
+  }
+
+  const submitRequest = async (requestData: any) => {
+    try {
+      const response = await fetch('/api/requests', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestData),
+      })
+
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.error || 'Failed to submit request')
+      }
+
+      const result = await response.json()
+      return result
+    } catch (error) {
+      console.error('Error submitting request:', error)
+      throw error
+    }
+  }
+
+  const handleSchedulingSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    
+    try {
+      const requestData = {
+        type: 'SCHEDULE_VIEWING',
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        preferredDate: formData.preferredDate,
+        timeWindow: formData.timeWindow,
+        message: formData.message || undefined
+      }
+
+      await submitRequest(requestData)
+      
+      alert('Thank you! Your viewing request has been submitted. We will contact you soon to confirm your appointment.')
+      setShowSchedulingModal(false)
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        preferredDate: '',
+        timeWindow: '',
+        message: ''
+      })
+    } catch (error) {
+      alert(`Error submitting request: ${error instanceof Error ? error.message : 'Unknown error'}`)
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  const handleContactSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    
+    try {
+      const requestData = {
+        type: 'CONTACT_US',
+        name: contactData.name,
+        email: contactData.email,
+        phone: contactData.phone,
+        subject: contactData.subject,
+        message: contactData.message
+      }
+
+      await submitRequest(requestData)
+      
+      alert('Thank you! Your message has been submitted. We will get back to you soon.')
+      setContactData({
+        name: '',
+        email: '',
+        phone: '',
+        subject: '',
+        message: ''
+      })
+    } catch (error) {
+      alert(`Error submitting message: ${error instanceof Error ? error.message : 'Unknown error'}`)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const closeModal = () => {
@@ -97,11 +184,8 @@ export default function Home() {
     <>
       {/* Top-right login links for Home only */}
       <div className="fixed top-4 right-4 z-50 flex items-center gap-3">
-        <Link href="/member-login" className="px-3 py-1.5 rounded-full text-sm font-medium text-slate-700 bg-white/80 backdrop-blur border border-slate-200 hover:bg-white hover:text-emerald-700 transition">
-          Member Login
-        </Link>
-        <Link href="/admin-login" className="px-3 py-1.5 rounded-full text-sm font-medium text-slate-700 bg-white/80 backdrop-blur border border-slate-200 hover:bg-white hover:text-purple-700 transition">
-          Admin Login
+        <Link href="/login" className="px-3 py-1.5 rounded-full text-sm font-medium text-slate-700 bg-white/80 backdrop-blur border border-slate-200 hover:bg-white hover:text-emerald-700 transition">
+          Login
         </Link>
       </div>
 
@@ -355,41 +439,92 @@ export default function Home() {
         gradientClass="from-teal-50 via-emerald-50 to-amber-50"
         minHeightClass="min-h-[70vh]"
       >
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm mb-2 text-teal-200">Full Name</label>
-            <input className="w-full rounded-xl bg-white/10 border border-white/10 px-4 py-3 text-white placeholder:text-teal-200/60 focus:outline-none focus:ring-2 focus:ring-teal-400" placeholder="Jane Doe" />
+        <form onSubmit={handleContactSubmit} className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm mb-2 text-teal-200">Full Name *</label>
+              <input
+                type="text"
+                name="name"
+                value={contactData.name}
+                onChange={handleContactInputChange}
+                required
+                className="w-full rounded-xl bg-white/10 border border-white/10 px-4 py-3 text-white placeholder:text-teal-200/60 focus:outline-none focus:ring-2 focus:ring-teal-400"
+                placeholder="Jane Doe"
+              />
+            </div>
+            <div>
+              <label className="block text-sm mb-2 text-teal-200">Email *</label>
+              <input
+                type="email"
+                name="email"
+                value={contactData.email}
+                onChange={handleContactInputChange}
+                required
+                className="w-full rounded-xl bg-white/10 border border-white/10 px-4 py-3 text-white placeholder:text-teal-200/60 focus:outline-none focus:ring-2 focus:ring-teal-400"
+                placeholder="you@example.com"
+              />
+            </div>
+            <div>
+              <label className="block text-sm mb-2 text-teal-200">Phone *</label>
+              <input
+                type="tel"
+                name="phone"
+                value={contactData.phone}
+                onChange={handleContactInputChange}
+                required
+                className="w-full rounded-xl bg-white/10 border border-white/10 px-4 py-3 text-white placeholder:text-teal-200/60 focus:outline-none focus:ring-2 focus:ring-teal-400"
+                placeholder="(555) 123-4567"
+              />
+            </div>
+            <div>
+              <label className="block text-sm mb-2 text-teal-200">Topic</label>
+              <select
+                name="subject"
+                value={contactData.subject}
+                onChange={handleContactInputChange}
+                className="w-full rounded-xl bg-white/10 border border-white/10 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-teal-400"
+              >
+                <option className="bg-teal-900" value="">Select a topic</option>
+                <option className="bg-teal-900" value="Property Inquiry">Property Inquiry</option>
+                <option className="bg-teal-900" value="Schedule Viewing">Schedule Viewing</option>
+                <option className="bg-teal-900" value="Partnership">Partnership</option>
+                <option className="bg-teal-900" value="Other">Other</option>
+              </select>
+            </div>
+            <div className="md:col-span-2">
+              <label className="block text-sm mb-2 text-teal-200">Message *</label>
+              <textarea
+                name="message"
+                value={contactData.message}
+                onChange={handleContactInputChange}
+                required
+                rows={4}
+                className="w-full rounded-xl bg-white/10 border border-white/10 px-4 py-3 text-white placeholder:text-teal-200/60 focus:outline-none focus:ring-2 focus:ring-teal-400"
+                placeholder="Tell us how we can help"
+              />
+            </div>
           </div>
-          <div>
-            <label className="block text-sm mb-2 text-teal-200">Email</label>
-            <input type="email" className="w-full rounded-xl bg-white/10 border border-white/10 px-4 py-3 text-white placeholder:text-teal-200/60 focus:outline-none focus:ring-2 focus:ring-teal-400" placeholder="you@example.com" />
+          <div className="flex items-center gap-4 pt-2">
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="px-6 py-3 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-500 text-white font-semibold hover:from-teal-600 hover:to-emerald-600 transition shadow disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isSubmitting ? 'Sending...' : 'Send Message'}
+            </button>
+            <button
+              type="button"
+              onClick={() => setShowSchedulingModal(true)}
+              className="px-6 py-3 rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold hover:from-blue-600 hover:to-purple-600 transition shadow"
+            >
+              Schedule Viewing
+            </button>
+            <div className="text-sm text-teal-200/80">
+              Or email us at <span className="text-teal-200 underline">info@luxylyfe.biz</span>
+            </div>
           </div>
-          <div>
-            <label className="block text-sm mb-2 text-teal-200">Phone</label>
-            <input className="w-full rounded-xl bg-white/10 border border-white/10 px-4 py-3 text-white placeholder:text-teal-200/60 focus:outline-none focus:ring-2 focus:ring-teal-400" placeholder="(555) 123-4567" />
-          </div>
-          <div>
-            <label className="block text-sm mb-2 text-teal-200">Topic</label>
-            <select className="w-full rounded-xl bg-white/10 border border-white/10 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-teal-400">
-              <option className="bg-teal-900">Property Inquiry</option>
-              <option className="bg-teal-900">Schedule Viewing</option>
-              <option className="bg-teal-900">Partnership</option>
-              <option className="bg-teal-900">Other</option>
-            </select>
-          </div>
-          <div className="md:col-span-2">
-            <label className="block text-sm mb-2 text-teal-200">Message</label>
-            <textarea rows={4} className="w-full rounded-xl bg-white/10 border border-white/10 px-4 py-3 text-white placeholder:text-teal-200/60 focus:outline-none focus:ring-2 focus:ring-teal-400" placeholder="Tell us how we can help" />
-          </div>
-        </div>
-        <div className="flex items-center gap-4 pt-2">
-          <button onClick={() => setShowSchedulingModal(true)} className="px-6 py-3 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-500 text-white font-semibold hover:from-teal-600 hover:to-emerald-600 transition shadow">
-            Send Message
-          </button>
-          <div className="text-sm text-teal-200/80">
-            Or email us at <span className="text-teal-200 underline">info@luxylyfe.biz</span>
-          </div>
-        </div>
+        </form>
       </SplitSection>
 
       {/* Stats Section */}
@@ -544,9 +679,10 @@ export default function Home() {
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-xl hover:from-blue-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105 font-semibold shadow-lg hover:shadow-blue-500/25"
+                    disabled={isSubmitting}
+                    className="flex-1 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-xl hover:from-blue-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105 font-semibold shadow-lg hover:shadow-blue-500/25 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                   >
-                    Submit Request
+                    {isSubmitting ? 'Submitting...' : 'Submit Request'}
                   </button>
                 </div>
               </form>

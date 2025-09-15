@@ -20,11 +20,8 @@ export default function Header() {
           </ul>
 
           <div className="hidden md:flex items-center gap-3">
-            <Link href="/member-login" className="px-4 py-2 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-50 transition">
-              Member Login
-            </Link>
-            <Link href="/admin-login" className="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white hover:from-emerald-700 hover:to-teal-700 transition shadow-sm">
-              Admin Login
+            <Link href="/login" className="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white hover:from-emerald-700 hover:to-teal-700 transition shadow-sm">
+              Login
             </Link>
           </div>
         </nav>

@@ -89,6 +89,10 @@ export async function POST(request: NextRequest) {
 
     console.log('Session created successfully with ID:', session.id)
 
+    // Determine redirect URL based on user role
+    const redirectUrl = (user.role === 'ADMIN' || user.role === 'SUPERADMIN') ? '/admin/dashboard' : '/member/dashboard'
+    console.log('Setting redirect URL for role', user.role, ':', redirectUrl)
+
     // Prepare response
     const response = NextResponse.json({
       message: 'Login successful',
@@ -98,6 +102,7 @@ export async function POST(request: NextRequest) {
         role: user.role,
         name: user.name
       },
+      redirectUrl,
       sessionId: session.id,
       expiresAt: expiresAt.toISOString()
     })

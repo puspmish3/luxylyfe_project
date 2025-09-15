@@ -88,6 +88,24 @@ export interface SiteSettings {
   updatedBy?: string;
 }
 
+export interface Request {
+  id: string;
+  type: 'CONTACT_US' | 'SCHEDULE_VIEWING';
+  name: string;
+  email: string;
+  phone: string;
+  subject?: string;
+  message?: string;
+  preferredDate?: string;
+  timeWindow?: string;
+  status: 'PENDING' | 'IN_PROGRESS' | 'COMPLETED' | 'CANCELLED';
+  assignedTo?: string;
+  adminNotes?: string;
+  createdAt: string;
+  updatedAt: string;
+  updatedBy?: string;
+}
+
 // Cosmos DB configuration
 const cosmosConfig = {
   endpoint: process.env.COSMOS_DB_ENDPOINT!,
@@ -544,6 +562,129 @@ export const db = {
       const container = getCosmosDatabase().container('site_settings');
       const { resources } = await container.items
         .query('SELECT VALUE COUNT(1) FROM c')
+        .fetchAll();
+      return resources[0] || 0;
+    },
+  },
+
+  requests: {
+    async create(data: Omit<Request, 'id' | 'createdAt' | 'updatedAt'>) {
+      const container = getCosmosDatabase().container('requests');
+      const request = {
+        id: generateId(),
+        ...addTimestamps(data),
+        status: data.status || 'PENDING',
+      };
+      const { resource } = await container.items.create(request);
+      return resource as Request;
+    },
+
+    async findById(id: string) {
+      try {
+        const container = getCosmosDatabase().container('requests');
+        // Use query instead of direct item access since we don't know the partition key
+        const querySpec = {
+          query: 'SELECT * FROM c WHERE c.id = @id',
+          parameters: [
+            {
+              name: '@id',
+              value: id
+            }
+          ]
+        };
+        const { resources } = await container.items.query(querySpec).fetchAll();
+        return resources.length > 0 ? resources[0] as Request : null;
+      } catch (error: any) {
+        console.error('Error finding request by id:', error);
+        return null;
+      }
+    },
+
+    async findMany(where?: { 
+      status?: string; 
+      type?: string; 
+      assignedTo?: string;
+      limit?: number;
+      offset?: number;
+    }) {
+      const container = getCosmosDatabase().container('requests');
+      let query = 'SELECT * FROM c';
+      const parameters: any[] = [];
+      
+      if (where?.status || where?.type || where?.assignedTo) {
+        const conditions: string[] = [];
+        if (where.status) {
+          conditions.push('c.status = @status');
+          parameters.push({ name: '@status', value: where.status });
+        }
+        if (where.type) {
+          conditions.push('c.type = @type');
+          parameters.push({ name: '@type', value: where.type });
+        }
+        if (where.assignedTo) {
+          conditions.push('c.assignedTo = @assignedTo');
+          parameters.push({ name: '@assignedTo', value: where.assignedTo });
+        }
+        query += ' WHERE ' + conditions.join(' AND ');
+      }
+      
+      // Add ordering and pagination
+      query += ' ORDER BY c.createdAt DESC';
+      
+      if (where?.limit) {
+        query += ` OFFSET ${where.offset || 0} LIMIT ${where.limit}`;
+      }
+      
+      const { resources } = await container.items
+        .query({ query, parameters })
+        .fetchAll();
+      
+      return resources as Request[];
+    },
+
+    async update(id: string, data: Partial<Omit<Request, 'id' | 'createdAt'>>) {
+      const container = getCosmosDatabase().container('requests');
+      
+      // First get the existing item
+      const existing = await this.findById(id);
+      if (!existing) return null;
+      
+      const updated = {
+        ...existing,
+        ...data,
+        updatedAt: new Date().toISOString(),
+      };
+      
+      const { resource } = await container.item(id, id).replace(updated);
+      return resource as Request;
+    },
+
+    async delete(id: string) {
+      const container = getCosmosDatabase().container('requests');
+      await container.item(id, id).delete();
+      return true;
+    },
+
+    async count(where?: { status?: string; type?: string }) {
+      const container = getCosmosDatabase().container('requests');
+      let query = 'SELECT VALUE COUNT(1) FROM c';
+      const parameters: any[] = [];
+      
+      if (where?.status || where?.type) {
+        const conditions: string[] = [];
+        if (where.status) {
+          conditions.push('c.status = @status');
+          parameters.push({ name: '@status', value: where.status });
+        }
+        if (where.type) {
+          conditions.push('c.type = @type');
+          parameters.push({ name: '@type', value: where.type });
+        }
+        query += ' WHERE ' + conditions.join(' AND ');
+      }
+      
+      const { resources } = await container.items
+        .query({ query, parameters })
         .fetchAll();
       return resources[0] || 0;
     },

@@ -20,8 +20,7 @@ async function seedFooterContent() {
           { title: 'Projects', url: '/projects' },
           { title: 'About Us', url: '/about-us' },
           { title: 'Contact Us', url: '/contact-us' },
-          { title: 'Member Login', url: '/member-login' },
-          { title: 'Admin Login', url: '/admin-login' }
+          { title: 'Login', url: '/login' }
         ]),
         order: 1,
         isActive: true
