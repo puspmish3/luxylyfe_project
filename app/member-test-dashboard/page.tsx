@@ -44,7 +44,7 @@ export default function MinimalMemberDashboard() {
         }
       } catch (error) {
         console.error('Auth check failed:', error)
-        setAuthError(`Network error: ${error.message}`)
+        setAuthError(`Network error: ${error instanceof Error ? error.message : String(error)}`)
         setTimeout(() => {
           router.push('/member-login')
         }, 3000)

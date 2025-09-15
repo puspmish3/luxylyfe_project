@@ -60,7 +60,7 @@ export default function LoginTestPage() {
 
     } catch (error) {
       setStep('Error occurred')
-      setResult(prev => prev + `\nError: ${error.message}\n`)
+      setResult(prev => prev + `\nError: ${error instanceof Error ? error.message : String(error)}\n`)
       console.error('Test error:', error)
     }
   }

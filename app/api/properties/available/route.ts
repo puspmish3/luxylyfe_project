@@ -1,28 +1,11 @@
 import { NextResponse } from 'next/server'
-import { prisma } from '@/lib/prisma'
+import { db } from '@/lib/database'
 
 export async function GET() {
   try {
     // Get all available properties with basic info for signup reference
-    const properties = await prisma.property.findMany({
-      where: {
-        isAvailable: true
-      },
-      select: {
-        propertyId: true,
-        title: true,
-        address: true,
-        city: true,
-        state: true,
-        zipCode: true,
-        price: true,
-        propertyType: true,
-        email: true,
-        phone: true
-      },
-      orderBy: {
-        propertyId: 'asc'
-      }
+    const properties = await db.property.findMany({
+      isAvailable: true
     })
 
     return NextResponse.json({
