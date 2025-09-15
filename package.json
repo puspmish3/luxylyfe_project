@@ -10,8 +10,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "node server.js",
-    "lint": "next lint",
-    "postinstall": "next build"
+    "lint": "next lint"
   },
   "dependencies": {
     "@azure/cosmos": "^4.5.1",
