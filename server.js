@@ -6,6 +6,9 @@ const dev = process.env.NODE_ENV !== 'production'
 const hostname = process.env.WEBSITE_HOSTNAME || 'localhost'
 const port = process.env.PORT || 3000
 
+console.log(`Starting server in ${dev ? 'development' : 'production'} mode`)
+console.log(`Hostname: ${hostname}, Port: ${port}`)
+
 // when using middleware `hostname` and `port` must be provided below
 const app = next({ dev, hostname, port })
 const handle = app.getRequestHandler()
@@ -32,4 +35,7 @@ app.prepare().then(() => {
     .listen(port, () => {
       console.log(`> Ready on http://${hostname}:${port}`)
     })
+}).catch((ex) => {
+  console.error('Failed to start server:', ex)
+  process.exit(1)
 })
