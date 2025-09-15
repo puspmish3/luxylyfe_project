@@ -1,22 +1,26 @@
 # Manual Azure Deployment Steps for LuxyLyfe
 
 ## Prerequisites
+
 1. Azure CLI installed: https://docs.microsoft.com/en-us/cli/azure/install-azure-cli
 2. Active Azure subscription
 3. Existing Cosmos DB account
 
 ## Step 1: Login to Azure
+
 ```bash
 az login
 az account set --subscription "your-subscription-id"
 ```
 
 ## Step 2: Create Resource Group
+
 ```bash
 az group create --name rg-luxylyfe-prod --location eastus
 ```
 
 ## Step 3: Create App Service Plan
+
 ```bash
 az appservice plan create \
   --name plan-luxylyfe-prod \
@@ -27,6 +31,7 @@ az appservice plan create \
 ```
 
 ## Step 4: Create App Service
+
 ```bash
 az webapp create \
   --name app-luxylyfe-prod \
@@ -36,6 +41,7 @@ az webapp create \
 ```
 
 ## Step 5: Configure App Settings
+
 ```bash
 # JWT Configuration
 az webapp config appsettings set \
@@ -52,6 +58,7 @@ az webapp config appsettings set \
 ```
 
 ## Step 6: Deploy Application
+
 ```bash
 # Build the application
 npm run build
@@ -67,6 +74,7 @@ az webapp deployment source config-zip \
 ```
 
 ## Step 7: Configure Startup Command
+
 ```bash
 az webapp config set \
   --name app-luxylyfe-prod \
@@ -75,6 +83,7 @@ az webapp config set \
 ```
 
 ## Step 8: Restart App Service
+
 ```bash
 az webapp restart \
   --name app-luxylyfe-prod \
@@ -82,11 +91,13 @@ az webapp restart \
 ```
 
 ## Step 9: Test Deployment
+
 Visit: https://app-luxylyfe-prod.azurewebsites.net
 
 ## Environment Variables Needed:
+
 - JWT_SECRET: A secure random string (minimum 32 characters)
-- NEXTAUTH_SECRET: Another secure random string 
+- NEXTAUTH_SECRET: Another secure random string
 - COSMOS_DB_ENDPOINT: Your existing Cosmos DB endpoint
 - COSMOS_DB_KEY: Your Cosmos DB primary key
 - COSMOS_DB_DATABASE_NAME: "luxylyfe"
